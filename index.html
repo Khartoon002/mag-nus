@@ -5,6 +5,20 @@
   <title>Magnus Registration | Magnus Platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <style>
+  /* RESET PAGE BACKGROUND + MARGINS TO REMOVE WHITE BORDER */
+  html, body {
+    margin:0;
+    padding:0;
+    background:#02030a;
+    color:#ffffff;
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+    font-family:Poppins,ui-sans-serif,system-ui;
+  }
+  </style>
+
   <!-- JSON-LD kept for SEO -->
   <script type="application/ld+json">
   {
@@ -210,7 +224,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
   <style>
-  /* ===== HARD THEME GUARD: make shortcode a full-width dark block ===== */
+  /* ===== HARD THEME GUARD: make whole layout full-width dark ===== */
   .mg-root{
     width:100%;
     max-width:100vw;
@@ -220,10 +234,11 @@
     color:#ffffff;
     position:relative;
     overflow:hidden;
+    min-height:100vh;
   }
   .mg-root *{box-sizing:border-box}
 
-  /* prevent theme containers inside from forcing white backgrounds */
+  /* prevent containers inside from forcing white backgrounds */
   .mg-root .wp-block-group,
   .mg-root .wp-block-column,
   .mg-root .wp-block-cover,
@@ -250,7 +265,6 @@
     --glow-strong:0 0 80px rgba(255,122,0,.75), 0 0 160px rgba(255,154,26,.55);
 
     color:var(--text);
-    font-family:Poppins,ui-sans-serif,system-ui;
     line-height:1.45;
     background:
       radial-gradient(1200px 600px at 50% -220px, rgba(255,122,0,.10), transparent 55%),
@@ -1086,6 +1100,7 @@
     .mg-root .modal .card{
       margin:2vh auto;
       max-height:90vh;
+      width:94vw;
     }
   }
 
@@ -1483,9 +1498,9 @@
     document.getElementById('mg-pmNumber').textContent = BANK.acctNo;
 
     const PLANS = {
-      'Lite':     { amount: 11000,     benefits: 'networking focus, starter tasks & training, basic support' },
-      'Pro':      { amount: 17500,      benefits: 'earn without referrals, pro links & analytics, priority support' },
-      'Business': { amount: 28500, benefits: 'maximum earnings, best Product PR rate, 1:1 coaching' }
+      'Lite':     { amount: 11000,  benefits: 'networking focus, starter tasks & training, basic support' },
+      'Pro':      { amount: 17500,  benefits: 'earn without referrals, pro links & analytics, priority support' },
+      'Business': { amount: 28500,  benefits: 'maximum earnings, best Product PR rate, 1:1 coaching' }
     };
 
     const fmt = (n)=> '₦' + n.toLocaleString('en-NG');
