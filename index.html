@@ -853,14 +853,14 @@
       font-size:14px;
     }
 
-    /* Floating CTA using orangrad style */
+    /* Floating CTA – BUTTONS ONLY (centered) */
     .mg-root .floating-cta{
       position:fixed;
       left:50%;
       transform:translateX(-50%);
       bottom:18px;
       z-index:70;
-      max-width:min(560px,96vw);
+      max-width:min(420px,96vw);
       padding:10px 12px;
       border-radius:22px;
       background:var(--panel);
@@ -871,37 +871,26 @@
     .mg-root .floating-cta-inner{
       display:flex;
       align-items:center;
-      gap:12px;
-      justify-content:space-between;
+      justify-content:center;
+      gap:8px;
       flex-wrap:wrap;
     }
     .mg-root .floating-cta-text{
-      flex:1 1 180px;
-      min-width:0;
-    }
-    .mg-root .floating-cta-text strong{
-      display:block;
-      font-size:0.82rem;
-    }
-    .mg-root .floating-cta-text span{
-      display:block;
-      font-size:0.72rem;
-      color:var(--text-dim);
+      display:none; /* removed text – container now holds only buttons */
     }
     .mg-root .floating-cta-actions{
       display:flex;
       gap:8px;
-      flex:0 0 auto;
+      flex-wrap:wrap;
+      justify-content:center;
+      width:100%;
     }
     .mg-root .floating-cta-actions .btn{
       min-width:0;
       padding-inline:1.1rem;
+      flex:1 1 0;
     }
     @media (max-width:480px){
-      .mg-root .floating-cta-inner{
-        flex-direction:column;
-        align-items:stretch;
-      }
       .mg-root .floating-cta-actions{
         width:100%;
         flex-direction:column;
@@ -1013,9 +1002,45 @@
     }
     .mg-root .pay-summary-steps li{margin-bottom:4px;}
 
+    /* NEW: Plan selector inside modal (Step 1) */
+    .mg-root .plan-toggle{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .mg-root .plan-btn{
+      flex:1 1 0;
+      padding:.55rem .7rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:#181821;
+      color:#ffffff;
+      font-size:.78rem;
+      font-weight:600;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px;
+    }
+    .mg-root .plan-btn span{
+      font-weight:700;
+    }
+    .mg-root .plan-btn small{
+      font-size:.7rem;
+      color:var(--text-dim);
+    }
+    .mg-root .plan-btn.active{
+      background:linear-gradient(135deg,var(--accent-orange1),var(--accent-orange2));
+      color:#111;
+      border-color:transparent;
+    }
+
     .mg-root .pay-details{
       display:grid;
       gap:8px;
+      margin-top:10px;
     }
     .mg-root .kv{
       display:grid;
@@ -1052,6 +1077,38 @@
       white-space:nowrap;
     }
     .mg-root .copy:hover{background:#1b1b24;}
+
+    /* NEW: Payment methods row (Step 2) */
+    .mg-root .payment-methods{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:2px;
+    }
+    .mg-root .pay-method-btn{
+      flex:1 1 0;
+      padding:.5rem .7rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:#17171b;
+      color:#ffffff;
+      font-size:.78rem;
+      font-weight:600;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px;
+    }
+    .mg-root .pay-method-btn small{
+      font-size:.68rem;
+      color:var(--text-dim);
+    }
+    .mg-root .pay-method-btn.active{
+      background:linear-gradient(135deg,var(--accent-orange1),var(--accent-orange2));
+      color:#111;
+      border-color:transparent;
+    }
 
     .mg-root .tip{
       margin:12px 0 0;
@@ -1100,6 +1157,21 @@
       line-height:1;
     }
     .mg-root .modal .close:hover{background:#20202a;}
+
+    /* NEW: Proof options (Step 3) */
+    #mg-proofOptions{
+      margin-top:14px;
+    }
+    #mg-proofOptions .channels{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    #mg-proofOptions .channels .btn{
+      flex:1 1 0;
+      font-size:.8rem;
+      padding:.7rem 1rem;
+    }
 
     @media (max-width:560px){
       .mg-root .kv{
@@ -1435,13 +1507,9 @@
         </div>
       </section>
 
-      <!-- FLOATING CTA -->
+      <!-- FLOATING CTA – BUTTONS ONLY -->
       <div class="floating-cta" role="dialog" aria-label="Quick actions">
         <div class="floating-cta-inner">
-          <div class="floating-cta-text">
-            <strong>Magnus Business & Pro slots are open.</strong>
-            <span>Tap “Start Now” to activate your Magnus account and get your welcome bonus.</span>
-          </div>
           <div class="floating-cta-actions">
             <a class="btn btn-orange mg-pay-open" href="#mg-pay" data-open="pay" data-plan="Pro">
               <span>Start Now</span>
@@ -1465,71 +1533,120 @@
     </div>
   </div>
 
-  <!-- PAYMENT MODAL -->
+  <!-- PAYMENT MODAL: Step 1 (Packages) → Step 2 (OPay / Bank) → Step 3 (Proof channel) -->
   <div id="mg-payModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mg-payTitle">
     <div class="backdrop" data-close-modal></div>
     <div class="card">
       <button class="close" title="Close" data-close-modal>&times;</button>
 
-      <h3 id="mg-payTitle">Bank Transfer — <span id="mg-pmPlan">Pro</span> Plan</h3>
+      <h3 id="mg-payTitle">Activate Your Magnus Plan</h3>
       <p id="mg-pmBlurb" class="muted">
-        Complete a secure transfer for the selected Magnus plan. Use the exact narration so we can auto-verify in 10–30 minutes.
+        Follow the three simple steps below: <b>select a package</b>, <b>choose payment method (OPay or Bank)</b>, then <b>submit your payment proof via WhatsApp, Telegram or Email</b>.
       </p>
 
       <div class="pay-layout">
-        <div class="pay-summary">
-          <div class="pay-summary-label">You’re activating</div>
-          <div class="pay-summary-plan"><span id="mg-pmPlanSummary">Pro plan</span></div>
-          <div class="pay-summary-amount">Amount: <span id="mg-pmAmountSummary">₦17,500</span></div>
+        <!-- LEFT: summary + plan selector -->
+        <div>
+          <div class="pay-summary">
+            <div class="pay-summary-label">You’re activating</div>
+            <div class="pay-summary-plan"><span id="mg-pmPlanSummary">Pro plan</span></div>
+            <div class="pay-summary-amount">Amount: <span id="mg-pmAmountSummary">₦17,500</span></div>
 
-          <div class="pay-summary-steps">
-            <strong>3 quick steps:</strong>
-            <ol>
-              <li>Copy the bank details below.</li>
-              <li>Transfer the exact amount from your bank.</li>
-              <li>Tap <b>“I’ve paid — Send Proof”</b> to confirm and get activated.</li>
-            </ol>
+            <div class="pay-summary-steps">
+              <strong>Step 1 — Select a Magnus package</strong>
+              <ol>
+                <li>Pick Lite, Pro or Business below.</li>
+                <li>See payment details update automatically.</li>
+                <li>Proceed to choose your payment method.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="plan-toggle" id="mg-planToggle">
+            <button type="button" class="plan-btn" data-plan="Lite">
+              <span>Lite</span>
+              <small>₦11,000</small>
+            </button>
+            <button type="button" class="plan-btn" data-plan="Pro">
+              <span>Pro</span>
+              <small>₦17,500</small>
+            </button>
+            <button type="button" class="plan-btn" data-plan="Business">
+              <span>Business</span>
+              <small>₦28,500</small>
+            </button>
           </div>
         </div>
 
-        <div class="pay-details">
-          <div class="kv">
-            <span>Bank Name</span>
-            <code id="mg-pmBank">Access Bank</code>
-            <button class="copy" data-copy="mg-pmBank">Copy</button>
+        <!-- RIGHT: payment method + account details -->
+        <div>
+          <div class="payment-methods" id="mg-paymentMethods">
+            <button type="button" class="pay-method-btn" data-method="opay">
+              <span>OPay</span>
+              <small>For OPay users</small>
+            </button>
+            <button type="button" class="pay-method-btn" data-method="bank">
+              <span>Other Banks</span>
+              <small>Normal bank transfer</small>
+            </button>
           </div>
-          <div class="kv">
-            <span>Account Name</span>
-            <code id="mg-pmName">Magnus Digital LTD</code>
-            <button class="copy" data-copy="mg-pmName">Copy</button>
-          </div>
-          <div class="kv">
-            <span>Account Number</span>
-            <code id="mg-pmNumber">0123456789</code>
-            <button class="copy" data-copy="mg-pmNumber">Copy</button>
-          </div>
-          <div class="kv">
-            <span>Amount</span>
-            <code id="mg-pmAmount">₦17,500</code>
-            <button class="copy" data-copy="mg-pmAmount">Copy</button>
-          </div>
-          <div class="kv">
-            <span>Narration / Ref</span>
-            <code id="mg-pmRef">MAG-yourname-PRO</code>
-            <button class="copy" data-copy="mg-pmRef">Copy</button>
+
+          <div class="pay-details">
+            <div class="kv">
+              <span>Bank Name</span>
+              <code id="mg-pmBank">Moniepoint</code>
+              <button class="copy" data-copy="mg-pmBank">Copy</button>
+            </div>
+            <div class="kv">
+              <span>Account Name</span>
+              <code id="mg-pmName">Spino Clinton</code>
+              <button class="copy" data-copy="mg-pmName">Copy</button>
+            </div>
+            <div class="kv">
+              <span>Account Number</span>
+              <code id="mg-pmNumber">6054080105</code>
+              <button class="copy" data-copy="mg-pmNumber">Copy</button>
+            </div>
+            <div class="kv">
+              <span>Amount</span>
+              <code id="mg-pmAmount">₦17,500</code>
+              <button class="copy" data-copy="mg-pmAmount">Copy</button>
+            </div>
+            <div class="kv">
+              <span>Narration / Ref</span>
+              <code id="mg-pmRef">MAG-yourname-PRO</code>
+              <button class="copy" data-copy="mg-pmRef">Copy</button>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="tip" id="mg-pmHelp">
-        You selected the <b>Pro</b> plan. After payment, tap “I’ve paid — Send Proof” to send your proof; we’ll activate Pro benefits (earn without referrals, pro links, priority support).
+        You selected the <b>Pro</b> plan. After transferring the exact amount to the account above, tap <b>“I’ve paid — Submit Proof”</b> and choose WhatsApp, Telegram or Email. A Magnus Verified PayFac will confirm you and activate your benefits.
       </div>
 
+      <!-- Step 3 button -->
       <div class="actions">
-        <a id="mg-pmProof" class="btn btn-orange btn-primary" href="https://wa.me/2347045052056?text=I%20have%20paid%20for%20Magnus%20Pro%20plan" target="_blank" rel="noopener">
-          I’ve paid — Send Proof
-        </a>
-        <button class="btn btn-secondary" data-close-modal>Close</button>
+        <button id="mg-pmProof" class="btn btn-orange btn-primary" type="button">
+          I’ve paid — Submit Proof
+        </button>
+        <button class="btn btn-secondary" data-close-modal type="button">Close</button>
+      </div>
+
+      <!-- Proof channels -->
+      <div id="mg-proofOptions" class="hidden">
+        <p class="muted mt-2"><strong>Choose where to send your payment proof:</strong></p>
+        <div class="channels">
+          <button type="button" class="btn btn-ghost" data-proof-channel="whatsapp">
+            WhatsApp
+          </button>
+          <button type="button" class="btn btn-ghost" data-proof-channel="telegram">
+            Telegram
+          </button>
+          <button type="button" class="btn btn-ghost" data-proof-channel="email">
+            Email
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1664,79 +1781,247 @@
     step();
   })();
 
-  // Payment Modal wiring
+  // Payment Modal wiring: Step 1 → Step 2 → Step 3
   (function(){
-    const MOD     = document.getElementById('mg-payModal');
+    const MOD      = document.getElementById('mg-payModal');
     if (!MOD) return;
-    const pmPlan  = document.getElementById('mg-pmPlan');
-    const pmAmount= document.getElementById('mg-pmAmount');
-    const pmRef   = document.getElementById('mg-pmRef');
-    const pmHelp  = document.getElementById('mg-pmHelp');
-    const pmProof = document.getElementById('mg-pmProof');
-    const pmPlanSummary   = document.getElementById('mg-pmPlanSummary');
-    const pmAmountSummary = document.getElementById('mg-pmAmountSummary');
 
-    const BANK = { name: 'Access Bank', acctName: 'Magnus Digital LTD', acctNo: '0123456789' };
-    document.getElementById('mg-pmBank').textContent   = BANK.name;
-    document.getElementById('mg-pmName').textContent   = BANK.acctName;
-    document.getElementById('mg-pmNumber').textContent = BANK.acctNo;
+    const pmTitle  = document.getElementById('mg-payTitle');
+    const pmBlurb  = document.getElementById('mg-pmBlurb');
+    const pmPlan   = document.getElementById('mg-pmPlanSummary');
+    const pmAmtSum = document.getElementById('mg-pmAmountSummary');
+    const pmBank   = document.getElementById('mg-pmBank');
+    const pmName   = document.getElementById('mg-pmName');
+    const pmNo     = document.getElementById('mg-pmNumber');
+    const pmAmt    = document.getElementById('mg-pmAmount');
+    const pmRef    = document.getElementById('mg-pmRef');
+    const pmHelp   = document.getElementById('mg-pmHelp');
+    const pmProof  = document.getElementById('mg-pmProof');
+    const proofBox = document.getElementById('mg-proofOptions');
+
+    const planToggle     = document.getElementById('mg-planToggle');
+    const methodRow      = document.getElementById('mg-paymentMethods');
 
     const PLANS = {
-      'Lite':     { amount: 11000,  benefits: 'networking focus, starter tasks & training, basic support' },
-      'Pro':      { amount: 17500,  benefits: 'earn without referrals, pro links & analytics, priority support' },
-      'Business': { amount: 28500,  benefits: 'maximum earnings, best Product PR rate, 1:1 coaching' }
+      Lite:     { amount: 11000,  benefits: 'networking focus, starter tasks & training, basic support' },
+      Pro:      { amount: 17500,  benefits: 'earn without referrals, pro links & analytics, priority support' },
+      Business: { amount: 28500,  benefits: 'maximum earnings, best Product PR rate, 1:1 coaching' }
     };
+
+    // Payment methods config (same as other Magnus code)
+    const PAYMENT_METHODS = {
+      opay: {
+        label: 'OPay',
+        acctNo: '1862610783',
+        acctName: 'Abasifreke Idorenyin Umoh',
+        bank: 'Kredi Money Mfb Ltd'
+      },
+      bank: {
+        label: 'Other Banks',
+        acctNo: '6054080105',
+        acctName: 'Spino Clinton',
+        bank: 'Moniepoint'
+      }
+    };
+
+    let currentPlan   = 'Pro';
+    let currentMethod = 'bank';
 
     const fmt = (n)=> '₦' + n.toLocaleString('en-NG');
     function refFor(plan){
       const u = (localStorage.getItem('mg_username')||'yourname').toLowerCase().replace(/[^a-z0-9]+/g,'');
-      return `MAG-${u}-${plan.toUpperCase()}`;
+      return `MAG-${u || 'yourname'}-${plan.toUpperCase()}`;
     }
 
-    function openPay(plan){
-      const P = PLANS[plan] || PLANS['Pro'];
-      const amountText = fmt(P.amount);
-      pmPlan.textContent   = plan;
-      pmAmount.textContent = amountText;
-      pmRef.textContent    = refFor(plan);
+    function setActiveButtons(container, selector, value, attr){
+      if (!container) return;
+      container.querySelectorAll(selector).forEach(btn=>{
+        const v = btn.getAttribute(attr);
+        if (v === value) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+    }
 
-      if (pmPlanSummary)   pmPlanSummary.textContent   = `${plan} plan`;
-      if (pmAmountSummary) pmAmountSummary.textContent = amountText;
+    function applyPlan(plan){
+      if (!PLANS[plan]) plan = 'Pro';
+      currentPlan = plan;
+      const cfg = PLANS[plan];
+      const amountText = fmt(cfg.amount);
 
-      document.getElementById('mg-pmBlurb').textContent = `Pay for the ${plan} plan via bank transfer. Use the exact narration for faster auto-verification.`;
-      pmHelp.innerHTML = `You selected the <b>${plan}</b> plan. After payment, tap “I’ve paid — Send Proof” to send your proof; we’ll activate ${plan} benefits (${P.benefits}).`;
+      if (pmPlan)   pmPlan.textContent   = plan + ' plan';
+      if (pmAmtSum) pmAmtSum.textContent = amountText;
+      if (pmAmt)    pmAmt.textContent    = amountText;
+      if (pmRef)    pmRef.textContent    = refFor(plan);
 
-      try {
-        const url = new URL(pmProof.href);
-        if (url.hostname.includes('wa.me')) {
-          const msg = `I have paid for Magnus ${plan} plan — ${pmRef.textContent} Amount: ${amountText}`;
-          url.searchParams.set('text', msg);
-          pmProof.href = url.toString();
-        }
-      } catch(e) {}
+      if (pmHelp){
+        pmHelp.innerHTML = `You selected the <b>${plan}</b> plan. After payment, tap “I’ve paid — Submit Proof” to send your proof; we’ll activate ${plan} benefits (${cfg.benefits}).`;
+      }
+
+      if (pmTitle){
+        pmTitle.textContent = 'Activate Your Magnus Plan';
+      }
+      if (pmBlurb){
+        pmBlurb.innerHTML = 'Follow the three simple steps below: <b>select a package</b>, <b>choose payment method (OPay or Bank)</b>, then <b>submit your payment proof via WhatsApp, Telegram or Email</b>.';
+      }
+
+      setActiveButtons(planToggle, '.plan-btn', plan, 'data-plan');
+    }
+
+    function applyMethod(method){
+      if (!PAYMENT_METHODS[method]) method = 'bank';
+      currentMethod = method;
+      const cfg = PAYMENT_METHODS[method];
+
+      if (pmBank) pmBank.textContent = cfg.bank;
+      if (pmName) pmName.textContent = cfg.acctName;
+      if (pmNo)   pmNo.textContent   = cfg.acctNo;
+
+      setActiveButtons(methodRow, '.pay-method-btn', method, 'data-method');
+    }
+
+    function openPay(defaultPlan){
+      applyPlan(defaultPlan || currentPlan || 'Pro');
+      applyMethod(currentMethod || 'bank');
+      if (proofBox) proofBox.classList.add('hidden'); // hide proof options until button is clicked
       MOD.classList.add('show');
       document.body.style.overflow = 'hidden';
     }
 
-    function closePay(){ MOD.classList.remove('show'); document.body.style.overflow = ''; }
+    function closePay(){
+      MOD.classList.remove('show');
+      document.body.style.overflow = '';
+    }
 
+    // Buttons that open modal (from hero, pricing, floating)
     document.querySelectorAll('[data-open="pay"]').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{ e.preventDefault(); openPay(btn.dataset.plan||'Pro'); });
-    });
-
-    MOD.querySelectorAll('[data-close-modal]').forEach(el=> el.addEventListener('click', closePay));
-    document.addEventListener('keydown', (e)=>{ if (e.key==='Escape' && MOD.classList.contains('show')) closePay(); });
-
-    MOD.querySelectorAll('.copy').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const id  = btn.getAttribute('data-copy');
-        const val = document.getElementById(id).textContent.trim();
-        navigator.clipboard.writeText(val).then(()=>{
-          btn.textContent = 'Copied';
-          setTimeout(()=> btn.textContent='Copy', 1200);
-        });
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const plan = btn.getAttribute('data-plan') || 'Pro';
+        openPay(plan);
       });
     });
+
+    // Close handlers
+    MOD.querySelectorAll('[data-close-modal]').forEach(el=>{
+      el.addEventListener('click', closePay);
+    });
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && MOD.classList.contains('show')) closePay();
+    });
+
+    // Copy buttons
+    MOD.querySelectorAll('.copy').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-copy');
+        const node = document.getElementById(id);
+        if (!node) return;
+        const val = (node.textContent || '').trim();
+        navigator.clipboard.writeText(val).then(()=>{
+          const old = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(()=> btn.textContent = old, 1200);
+        }).catch(()=>{});
+      });
+    });
+
+    // Plan toggle events
+    if (planToggle){
+      planToggle.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.plan-btn');
+        if (!btn) return;
+        const plan = btn.getAttribute('data-plan') || 'Pro';
+        applyPlan(plan);
+      });
+    }
+
+    // Payment method toggle events
+    if (methodRow){
+      methodRow.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.pay-method-btn');
+        if (!btn) return;
+        const method = btn.getAttribute('data-method') || 'bank';
+        applyMethod(method);
+      });
+    }
+
+    // Step 3: show proof options when main button is clicked
+    if (pmProof && proofBox){
+      pmProof.addEventListener('click', ()=>{
+        proofBox.classList.remove('hidden');
+      });
+    }
+
+    // Proof channel handlers (WhatsApp / Telegram / Email)
+    if (proofBox){
+      proofBox.addEventListener('click', (e)=>{
+        const btn = e.target.closest('[data-proof-channel]');
+        if (!btn) return;
+        const channel = btn.getAttribute('data-proof-channel');
+
+        const planCfg   = PLANS[currentPlan] || PLANS['Pro'];
+        const amountTxt = fmt(planCfg.amount);
+        const bankName  = (pmBank && pmBank.textContent.trim()) || '';
+        const acctName  = (pmName && pmName.textContent.trim()) || '';
+        const acctNo    = (pmNo && pmNo.textContent.trim()) || '';
+        const ref       = (pmRef && pmRef.textContent.trim()) || '';
+
+        let username = 'there';
+        let phone    = '';
+        let email    = '';
+        try{
+          username = localStorage.getItem('magnus_apply_fullname') || localStorage.getItem('mg_username') || 'there';
+          phone    = localStorage.getItem('magnus_apply_phone') || '';
+          email    = localStorage.getItem('magnus_apply_email') || '';
+        }catch(_){}
+
+        const msg =
+`Hello Verified PayFac, please verify my Magnus payment.
+
+Name: ${username}
+Phone: ${phone}
+Email: ${email}
+
+Selected Plan: ${currentPlan}
+Amount: ${amountTxt}
+Payment Method: ${currentMethod === 'opay' ? 'OPay' : 'Bank Transfer'}
+
+Payment Details I used:
+Bank: ${bankName}
+Account Name: ${acctName}
+Account Number: ${acctNo}
+Narration/Ref: ${ref}
+
+I will now send/upload my proof of payment (screenshot or receipt).
+Thank you.`;
+
+        if (channel === 'whatsapp'){
+          const waNumber = '2347045052056';
+          const url = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
+          window.location.href = url;
+        } else if (channel === 'telegram'){
+          const tgUsername = 'magnusvemdor';
+          const appUrl = 'tg://resolve?domain=' + tgUsername + '&text=' + encodeURIComponent(msg);
+          const webUrl = 'https://t.me/' + tgUsername + '?text=' + encodeURIComponent(msg);
+
+          const start = Date.now();
+          window.location.href = appUrl;
+          setTimeout(function(){
+            if (Date.now() - start < 1200){
+              window.location.href = webUrl;
+            }
+          }, 700);
+        } else if (channel === 'email'){
+          const emailTo = '12coreclint@gmail.com';
+          const subject = 'Magnus Payment Proof Verification';
+          const url = 'mailto:' + emailTo + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+          window.location.href = url;
+        }
+      });
+    }
+
+    // Init defaults
+    applyPlan('Pro');
+    applyMethod('bank');
   })();
 })();
 </script>
