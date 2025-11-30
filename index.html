@@ -286,16 +286,12 @@
       white-space:nowrap;
       transition:transform .18s ease, box-shadow .2s ease, opacity .15s ease, background .22s ease;
     }
-    .btn-orange,
-    .mg-wrap .btn-primary,
-    .mg-root .floating-cta-actions .btn.mg-pay-open{
+    .btn-orange{
       background:linear-gradient(135deg,var(--accent-orange1),var(--accent-orange2));
       color:#111;
       box-shadow:0 18px 32px -16px var(--shadow);
     }
-    .btn-ghost,
-    .mg-wrap .btn.ghost,
-    .mg-root .floating-cta-actions .btn.ghost{
+    .btn-ghost{
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.08);
       color:var(--text);
@@ -362,7 +358,7 @@
       padding:clamp(28px,6.5vw,72px) 0;
     }
 
-    /* NAV (use darker panel + chips) */
+    /* NAV */
     .mg-wrap nav.mg-nav{
       position:sticky;
       top:0;
@@ -456,7 +452,7 @@
     }
     .mg-wrap .mobile-menu .cta{padding:12px 8px}
 
-    /* HERO section with orangrad wallet card style */
+    /* HERO */
     .mg-wrap .hero{
       padding:clamp(40px,7vw,96px) 0 28px;
       position:relative;
@@ -690,7 +686,7 @@
       position:relative;
     }
 
-    /* Benefits grid styled like dark cards */
+    /* Benefits grid */
     .mg-wrap .benefits{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -853,14 +849,14 @@
       font-size:14px;
     }
 
-    /* Floating CTA – BUTTONS ONLY (centered) */
+    /* Floating CTA – now ONLY buttons in the middle */
     .mg-root .floating-cta{
       position:fixed;
       left:50%;
       transform:translateX(-50%);
       bottom:18px;
       z-index:70;
-      max-width:min(420px,96vw);
+      max-width:min(560px,96vw);
       padding:10px 12px;
       border-radius:22px;
       background:var(--panel);
@@ -872,25 +868,21 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .mg-root .floating-cta-text{
-      display:none; /* removed text – container now holds only buttons */
     }
     .mg-root .floating-cta-actions{
       display:flex;
       gap:8px;
-      flex-wrap:wrap;
-      justify-content:center;
-      width:100%;
+      flex:0 0 auto;
     }
     .mg-root .floating-cta-actions .btn{
       min-width:0;
       padding-inline:1.1rem;
-      flex:1 1 0;
     }
     @media (max-width:480px){
+      .mg-root .floating-cta-inner{
+        flex-direction:column;
+        align-items:stretch;
+      }
       .mg-root .floating-cta-actions{
         width:100%;
         flex-direction:column;
@@ -924,270 +916,6 @@
       to{opacity:1;transform:none}
     }
 
-    /* Payment modal styled with dark card + orangrad buttons */
-    .mg-root .modal{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      display:none;
-    }
-    .mg-root .modal.show{display:block}
-    .mg-root .modal .backdrop{
-      position:absolute;
-      inset:0;
-      background:rgba(0,0,0,.75);
-      backdrop-filter:blur(10px);
-    }
-    .mg-root .modal .card{
-      position:relative;
-      width:min(780px,92vw);
-      max-height:86vh;
-      overflow:auto;
-      margin:6vh auto;
-      padding:20px 20px 22px;
-      border-radius:26px;
-      background:var(--panel);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 32px 80px rgba(0,0,0,.9);
-    }
-    .mg-root .modal h3{
-      margin:0 0 6px;
-      font-size:clamp(18px,2.6vw,22px);
-      color:#ffffff;
-    }
-    .mg-root .modal .muted{
-      color:var(--text-dim);
-      font-size:.9rem;
-    }
-
-    .mg-root .pay-layout{
-      display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
-      gap:16px;
-      margin-top:14px;
-    }
-    @media (max-width:720px){
-      .mg-root .pay-layout{grid-template-columns:1fr;}
-    }
-    .mg-root .pay-summary{
-      padding:14px 14px 12px;
-      border-radius:20px;
-      border:1px solid rgba(255,255,255,.14);
-      background:#1b1b1f;
-    }
-    .mg-root .pay-summary-label{
-      font-size:12px;
-      color:var(--text-dim);
-      margin-bottom:2px;
-    }
-    .mg-root .pay-summary-plan{
-      font-size:20px;
-      font-weight:800;
-      color:var(--accent-orange1);
-      margin-bottom:2px;
-    }
-    .mg-root .pay-summary-amount{
-      font-size:16px;
-      font-weight:700;
-      color:#ffddb3;
-    }
-    .mg-root .pay-summary-steps{
-      margin-top:10px;
-      font-size:12px;
-      color:var(--text-dim);
-    }
-    .mg-root .pay-summary-steps ol{
-      padding-left:18px;
-      margin:6px 0 0;
-    }
-    .mg-root .pay-summary-steps li{margin-bottom:4px;}
-
-    /* NEW: Plan selector inside modal (Step 1) */
-    .mg-root .plan-toggle{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .mg-root .plan-btn{
-      flex:1 1 0;
-      padding:.55rem .7rem;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:#181821;
-      color:#ffffff;
-      font-size:.78rem;
-      font-weight:600;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:6px;
-    }
-    .mg-root .plan-btn span{
-      font-weight:700;
-    }
-    .mg-root .plan-btn small{
-      font-size:.7rem;
-      color:var(--text-dim);
-    }
-    .mg-root .plan-btn.active{
-      background:linear-gradient(135deg,var(--accent-orange1),var(--accent-orange2));
-      color:#111;
-      border-color:transparent;
-    }
-
-    .mg-root .pay-details{
-      display:grid;
-      gap:8px;
-      margin-top:10px;
-    }
-    .mg-root .kv{
-      display:grid;
-      grid-template-columns:120px minmax(0,1fr) auto;
-      align-items:center;
-      gap:10px;
-      padding:9px 10px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      background:#17171b;
-    }
-    .mg-root .kv span{
-      font-size:12px;
-      color:var(--text-dim);
-    }
-    .mg-root .kv code{
-      background:#0d0d11;
-      border:1px solid #23232c;
-      padding:.55rem .75rem;
-      border-radius:12px;
-      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:.9rem;
-      color:#ffddb3;
-      word-break:break-all;
-    }
-    .mg-root .copy{
-      border:1px solid #2a2a33;
-      background:#14141a;
-      color:#fff;
-      border-radius:999px;
-      padding:.45rem .8rem;
-      cursor:pointer;
-      font-size:11px;
-      white-space:nowrap;
-    }
-    .mg-root .copy:hover{background:#1b1b24;}
-
-    /* NEW: Payment methods row (Step 2) */
-    .mg-root .payment-methods{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:2px;
-    }
-    .mg-root .pay-method-btn{
-      flex:1 1 0;
-      padding:.5rem .7rem;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:#17171b;
-      color:#ffffff;
-      font-size:.78rem;
-      font-weight:600;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:6px;
-    }
-    .mg-root .pay-method-btn small{
-      font-size:.68rem;
-      color:var(--text-dim);
-    }
-    .mg-root .pay-method-btn.active{
-      background:linear-gradient(135deg,var(--accent-orange1),var(--accent-orange2));
-      color:#111;
-      border-color:transparent;
-    }
-
-    .mg-root .tip{
-      margin:12px 0 0;
-      color:var(--text-dim);
-      font-size:.86rem;
-    }
-    .mg-root .modal .actions{
-      display:flex;
-      gap:10px;
-      justify-content:space-between;
-      margin-top:16px;
-      flex-wrap:wrap;
-    }
-    .mg-root .modal .actions .btn-primary{
-      flex:1 1 auto;
-      justify-content:center;
-      text-align:center;
-      font-size:0.88rem;
-      padding:0.9rem 1.4rem;
-    }
-    .mg-root .modal .actions .btn-secondary{
-      background:rgba(12,12,20,.98);
-      color:#ffffff;
-      border:1px solid #2a2a33;
-      box-shadow:none;
-      padding:0.8rem 1.2rem;
-      font-size:0.82rem;
-      border-radius:999px;
-    }
-    .mg-root .modal .actions .btn-secondary:hover{
-      background:rgba(18,18,26,.98);
-    }
-    .mg-root .modal .close{
-      position:absolute;
-      right:14px;
-      top:14px;
-      border:0;
-      background:#181821;
-      color:#fff;
-      border:1px solid #2a2a33;
-      width:34px;
-      height:34px;
-      border-radius:999px;
-      cursor:pointer;
-      font-size:18px;
-      line-height:1;
-    }
-    .mg-root .modal .close:hover{background:#20202a;}
-
-    /* NEW: Proof options (Step 3) */
-    #mg-proofOptions{
-      margin-top:14px;
-    }
-    #mg-proofOptions .channels{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    #mg-proofOptions .channels .btn{
-      flex:1 1 0;
-      font-size:.8rem;
-      padding:.7rem 1rem;
-    }
-
-    @media (max-width:560px){
-      .mg-root .kv{
-        grid-template-columns:1fr auto;
-        grid-template-areas:"label copy" "value value";
-      }
-      .mg-root .kv span{grid-area:label}
-      .mg-root .kv code{grid-area:value}
-      .mg-root .kv .copy{grid-area:copy}
-      .mg-root .modal .card{
-        margin:2vh auto;
-        max-height:90vh;
-        width:94vw;
-      }
-    }
-
     .mg-wrap .mg-footer a{color:#ffb56b}
     .mg-wrap .mg-footer a:hover{color:#ffdca4}
   </style>
@@ -1211,7 +939,7 @@
             <a href="#mg-faq">FAQ</a>
           </div>
           <div class="nav-actions">
-            <a class="btn btn-orange mg-pay-open" href="#mg-pay" data-open="pay" data-plan="Pro">
+            <a class="btn btn-orange mg-pay-open" href="#mg-pricing">
               <span>Get Started</span>
             </a>
           </div>
@@ -1222,7 +950,7 @@
           <a href="#mg-benefits">Benefits</a>
           <a href="#mg-pricing">Packages</a>
           <a href="#mg-faq">FAQ</a>
-          <a href="#mg-pay" class="cta mg-pay-open" data-open="pay" data-plan="Pro">
+          <a href="#mg-pricing" class="cta mg-pay-open">
             <span class="btn btn-orange w-full justify-center">Get Started</span>
           </a>
         </div>
@@ -1241,7 +969,7 @@
               <span class="badge"><i></i> Skills → Instant Jobs</span>
             </div>
             <div class="cta mt-3">
-              <a class="btn btn-orange mg-pay-open" href="#mg-pay" data-open="pay" data-plan="Pro">
+              <a class="btn btn-orange mg-pay-open" href="#mg-pricing">
                 <span>Select a Package</span>
               </a>
               <a class="btn btn-ghost" href="#mg-benefits">Explore Features</a>
@@ -1422,7 +1150,7 @@
                 <li>Starter tasks & training</li>
                 <li>Basic support</li>
               </ul>
-              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pay" data-open="pay" data-plan="Lite">
+              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pricing" data-plan="Lite">
                 <span>Select Lite</span>
               </a>
             </div>
@@ -1438,7 +1166,7 @@
                 <li>Pro links & analytics</li>
                 <li>Priority support</li>
               </ul>
-              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pay" data-open="pay" data-plan="Pro">
+              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pricing" data-plan="Pro">
                 <span>Select Pro</span>
               </a>
             </div>
@@ -1453,7 +1181,7 @@
                 <li>Best Product PR rate</li>
                 <li>1:1 coaching</li>
               </ul>
-              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pay" data-open="pay" data-plan="Business">
+              <a class="btn btn-orange mg-pay-open mt-2" href="#mg-pricing" data-plan="Business">
                 <span>Select Business</span>
               </a>
             </div>
@@ -1507,11 +1235,11 @@
         </div>
       </section>
 
-      <!-- FLOATING CTA – BUTTONS ONLY -->
+      <!-- FLOATING CTA (only buttons in container) -->
       <div class="floating-cta" role="dialog" aria-label="Quick actions">
         <div class="floating-cta-inner">
           <div class="floating-cta-actions">
-            <a class="btn btn-orange mg-pay-open" href="#mg-pay" data-open="pay" data-plan="Pro">
+            <a class="btn btn-orange mg-pay-open" href="#mg-pricing" data-plan="Pro">
               <span>Start Now</span>
             </a>
             <a class="btn btn-ghost" href="#mg-pricing">View Packages</a>
@@ -1533,124 +1261,386 @@
     </div>
   </div>
 
-  <!-- PAYMENT MODAL: Step 1 (Packages) → Step 2 (OPay / Bank) → Step 3 (Proof channel) -->
-  <div id="mg-payModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mg-payTitle">
-    <div class="backdrop" data-close-modal></div>
-    <div class="card">
-      <button class="close" title="Close" data-close-modal>&times;</button>
+  <!-- NEW MULTI-STEP PAYMENT FLOW (plans -> method -> payment -> proof channels) -->
 
-      <h3 id="mg-payTitle">Activate Your Magnus Plan</h3>
-      <p id="mg-pmBlurb" class="muted">
-        Follow the three simple steps below: <b>select a package</b>, <b>choose payment method (OPay or Bank)</b>, then <b>submit your payment proof via WhatsApp, Telegram or Email</b>.
-      </p>
-
-      <div class="pay-layout">
-        <!-- LEFT: summary + plan selector -->
-        <div>
-          <div class="pay-summary">
-            <div class="pay-summary-label">You’re activating</div>
-            <div class="pay-summary-plan"><span id="mg-pmPlanSummary">Pro plan</span></div>
-            <div class="pay-summary-amount">Amount: <span id="mg-pmAmountSummary">₦17,500</span></div>
-
-            <div class="pay-summary-steps">
-              <strong>Step 1 — Select a Magnus package</strong>
-              <ol>
-                <li>Pick Lite, Pro or Business below.</li>
-                <li>See payment details update automatically.</li>
-                <li>Proceed to choose your payment method.</li>
-              </ol>
-            </div>
-          </div>
-
-          <div class="plan-toggle" id="mg-planToggle">
-            <button type="button" class="plan-btn" data-plan="Lite">
-              <span>Lite</span>
-              <small>₦11,000</small>
-            </button>
-            <button type="button" class="plan-btn" data-plan="Pro">
-              <span>Pro</span>
-              <small>₦17,500</small>
-            </button>
-            <button type="button" class="plan-btn" data-plan="Business">
-              <span>Business</span>
-              <small>₦28,500</small>
-            </button>
-          </div>
-        </div>
-
-        <!-- RIGHT: payment method + account details -->
-        <div>
-          <div class="payment-methods" id="mg-paymentMethods">
-            <button type="button" class="pay-method-btn" data-method="opay">
-              <span>OPay</span>
-              <small>For OPay users</small>
-            </button>
-            <button type="button" class="pay-method-btn" data-method="bank">
-              <span>Other Banks</span>
-              <small>Normal bank transfer</small>
-            </button>
-          </div>
-
-          <div class="pay-details">
-            <div class="kv">
-              <span>Bank Name</span>
-              <code id="mg-pmBank">Moniepoint</code>
-              <button class="copy" data-copy="mg-pmBank">Copy</button>
-            </div>
-            <div class="kv">
-              <span>Account Name</span>
-              <code id="mg-pmName">Spino Clinton</code>
-              <button class="copy" data-copy="mg-pmName">Copy</button>
-            </div>
-            <div class="kv">
-              <span>Account Number</span>
-              <code id="mg-pmNumber">6054080105</code>
-              <button class="copy" data-copy="mg-pmNumber">Copy</button>
-            </div>
-            <div class="kv">
-              <span>Amount</span>
-              <code id="mg-pmAmount">₦17,500</code>
-              <button class="copy" data-copy="mg-pmAmount">Copy</button>
-            </div>
-            <div class="kv">
-              <span>Narration / Ref</span>
-              <code id="mg-pmRef">MAG-yourname-PRO</code>
-              <button class="copy" data-copy="mg-pmRef">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tip" id="mg-pmHelp">
-        You selected the <b>Pro</b> plan. After transferring the exact amount to the account above, tap <b>“I’ve paid — Submit Proof”</b> and choose WhatsApp, Telegram or Email. A Magnus Verified PayFac will confirm you and activate your benefits.
-      </div>
-
-      <!-- Step 3 button -->
-      <div class="actions">
-        <button id="mg-pmProof" class="btn btn-orange btn-primary" type="button">
-          I’ve paid — Submit Proof
+  <!-- Magnus Entry Plans Modal -->
+  <div id="magnusPlansModal" class="fixed inset-0 z-[9998] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div class="w-full max-w-3xl bg-[#121214] text-white rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+        <h2 class="text-xl font-extrabold">
+          Choose Your Entry Plan
+        </h2>
+        <button id="closePlansModal" class="px-3 py-1 text-sm rounded-lg bg-white/10 hover:bg-white/15">
+          Close
         </button>
-        <button class="btn btn-secondary" data-close-modal type="button">Close</button>
       </div>
+      <div id="plansContent" class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Plan Card: Lite -->
+          <button data-plan="Lite" class="group bg-white/5 hover:bg-white/10 rounded-2xl p-4 text-left ring-1 ring-white/10 hover:ring-white/20 transition shadow-soft relative">
+            <div class="text-sm uppercase tracking-wide text-white/70">
+              Magnus
+            </div>
+            <div class="mt-1 text-2xl font-extrabold">
+              Lite
+            </div>
+            <p class="mt-2 text-sm text-white/70">
+              Entry starter for beginners.
+            </p>
+            <div class="mt-4 text-lg font-bold">
+              ₦11,000
+            </div>
+            <div class="mt-3 text-xs text-white/60">
+              Tap to select
+            </div>
+            <div class="mt-3">
+              <a href="#" class="see-benefits text-xs underline text-white/80">See benefits</a>
+              <div class="mt-2 hidden text-xs leading-relaxed text-white/80" data-benefit-panel="Lite">
+                <div class="space-y-2">
+                  <p class="text-white/90">
+                    <span class="font-bold">Magnus Lite</span>
+                    gets you onboard fast with the essentials to start earning today.
+                  </p>
+                  <ul class="list-disc list-inside space-y-1">
+                    <li>Immediate account activation &amp; full dashboard access.</li>
+                    <li>Beginner-friendly earning tools and step-by-step guides.</li>
+                    <li>Access to the official community for quick support.</li>
+                    <li>Clear withdrawal process and starter referral perks.</li>
+                  </ul>
+                  <p class="mt-2 text-white/80 text-[11px]">
+                    <em>Estimated earnings:</em>
+                    unchanged — the same figures you already use for Lite.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href="#" class="select-plan orangrad text-[#111] font-extrabold rounded-2xl px-4 py-2 shadow-soft text-sm">Select Lite</a>
+            </div>
+          </button>
+          <!-- Plan Card: Pro -->
+          <button data-plan="Pro" class="group bg-white/5 hover:bg-white/10 rounded-2xl p-4 text-left ring-1 ring-white/10 hover:ring-white/20 transition shadow-soft relative">
+            <div class="text-sm uppercase tracking-wide text-white/70">
+              Magnus
+            </div>
+            <div class="mt-1 text-2xl font-extrabold">
+              Pro
+            </div>
+            <p class="mt-2 text-sm text-white/70">
+              Grow faster with better perks.
+            </p>
+            <div class="mt-4 text-lg font-bold">
+              ₦17,500
+            </div>
+            <div class="mt-3 text-xs text-white/60">
+              Tap to select
+            </div>
+            <div class="mt-3">
+              <a href="#" class="see-benefits text-xs underline text-white/80">See benefits</a>
+              <div class="mt-2 hidden text-xs leading-relaxed text-white/80" data-benefit-panel="Pro">
+                <div class="space-y-2">
+                  <p class="text-white/90">
+                    <span class="font-bold">Magnus Pro</span>
+                    is designed to help you scale faster with better returns and training.
+                  </p>
+                  <ul class="list-disc list-inside space-y-1">
+                    <li>Everything in Lite, plus higher commission rates.</li>
+                    <li>Priority updates, mentorship sessions and pro tutorials.</li>
+                    <li>Better daily limits and improved earning multipliers.</li>
+                    <li>Faster support response for quicker issue resolution.</li>
+                  </ul>
+                  <p class="mt-2 text-white/80 text-[11px]">
+                    <em>Estimated earnings:</em>
+                    unchanged — the same figures you already use for Pro.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href="#" class="select-plan orangrad text-[#111] font-extrabold rounded-2xl px-4 py-2 shadow-soft text-sm">Select Pro</a>
+            </div>
+          </button>
+          <!-- Plan Card: Business -->
+          <button data-plan="Business" class="group bg-white/5 hover:bg-white/10 rounded-2xl p-4 text-left ring-1 ring-white/10 hover:ring-white/20 transition shadow-soft relative">
+            <div class="text-sm uppercase tracking-wide text-white/70">
+              Magnus
+            </div>
+            <div class="mt-1 text-2xl font-extrabold">
+              Business
+            </div>
+            <p class="mt-2 text-sm text-white/70">
+              Best for team or sales focus.
+            </p>
+            <div class="mt-4 text-lg font-bold">
+              ₦28,500
+            </div>
+            <div class="mt-3 text-xs text-white/60">
+              Tap to select
+            </div>
+            <div class="mt-3">
+              <a href="#" class="see-benefits text-xs underline text-white/80">See benefits</a>
+              <div class="mt-2 hidden text-xs leading-relaxed text-white/80" data-benefit-panel="Business">
+                <div class="space-y-2">
+                  <p class="text-white/90">
+                    <span class="font-bold">Magnus Business</span>
+                    gives you the highest leverage for team or sales-driven growth.
+                  </p>
+                  <ul class="list-disc list-inside space-y-1">
+                    <li>Everything in Pro, plus advanced team &amp; reseller tools.</li>
+                    <li>Top-tier commissions and layered bonus opportunities.</li>
+                    <li>Priority queue for verifications and escalations.</li>
+                    <li>Early access to new features and promotional campaigns.</li>
+                  </ul>
+                  <p class="mt-2 text-white/80 text-[11px]">
+                    <em>Estimated earnings:</em>
+                    unchanged — the same figures you already use for Business.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href="#" class="select-plan orangrad text-[#111] font-extrabold rounded-2xl px-4 py-2 shadow-soft text-sm">Select Business</a>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="px-6 pb-6">
+        <p class="text-xs text-white/60">
+          You can change your plan later.
+        </p>
+      </div>
+    </div>
+  </div>
 
-      <!-- Proof channels -->
-      <div id="mg-proofOptions" class="hidden">
-        <p class="muted mt-2"><strong>Choose where to send your payment proof:</strong></p>
-        <div class="channels">
-          <button type="button" class="btn btn-ghost" data-proof-channel="whatsapp">
-            WhatsApp
+  <!-- Payment Method Selection Modal -->
+  <div id="paymentMethodModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div class="w-full max-w-sm bg-[#121214] text-white rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+        <h3 class="text-lg font-extrabold">
+          Choose Payment Method
+        </h3>
+      </div>
+      <div class="px-6 py-5 space-y-4">
+        <p class="text-sm text-white/70">
+          Select how you want to pay for your Magnus entry plan.
+        </p>
+        <div class="space-y-3">
+          <!-- OPay -->
+          <button type="button" data-pay-method="opay" class="w-full flex items-center justify-between rounded-xl bg-[#22c55e1a] hover:bg-[#22c55e33] px-4 py-3">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-[#22C55E] grid place-items-center font-bold text-[#111] text-xs">
+                OP
+              </span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">
+                  OPay Bank
+                </div>
+                <div class="text-xs text-white/70">
+                  For OPay users only
+                </div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-white/80">Use</span>
           </button>
-          <button type="button" class="btn btn-ghost" data-proof-channel="telegram">
-            Telegram
-          </button>
-          <button type="button" class="btn btn-ghost" data-proof-channel="email">
-            Email
+          <!-- Other Banks -->
+          <button type="button" data-pay-method="bank" class="w-full flex items-center justify-between rounded-xl bg-white/5 hover:bg-white/10 px-4 py-3">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-full bg-white/90 grid place-items-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="7" width="18" height="11" rx="2" stroke="#111" stroke-width="1.4"></rect>
+                  <path d="M3 11h18" stroke="#111" stroke-width="1.4" stroke-linecap="round"></path>
+                  <path d="M9 5h6" stroke="#111" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+              </span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">
+                  Other Banks
+                </div>
+                <div class="text-xs text-white/70">
+                  Normal bank transfer
+                </div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-white/80">Use</span>
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Payment Card Modal -->
+  <div id="payfacPaymentModal" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div class="w-full max-w-md bg-[#121214] text-white rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+        <h3 class="text-lg font-extrabold">
+          Complete Your Setup
+        </h3>
+        <button id="closePaymentModal" class="px-3 py-1 text-sm rounded-lg bg-white/10 hover:bg-white/15">
+          Close
+        </button>
+      </div>
+      <div class="px-6 py-5 space-y-3" id="paymentCardBody">
+        <p class="text-sm">
+          Hi
+          <span id="pfUserName" class="font-bold">there</span>, pay to this account to get started.
+        </p>
+        <div class="grid grid-cols-1 gap-2 text-sm">
+          <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 ring-1 ring-white/10">
+            <div>
+              <div class="text-white/70">
+                Account number
+              </div>
+              <div class="font-bold" id="pfAcctNo">
+                2283315431
+              </div>
+            </div>
+            <button class="ml-3 text-xs bg-white/10 hover:bg-white/15 rounded-lg px-3 py-2" data-copy-target="#pfAcctNo">
+              Copy
+            </button>
+          </div>
+          <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 ring-1 ring-white/10">
+            <div>
+              <div class="text-white/70">
+                Account Name
+              </div>
+              <div class="font-bold" id="pfAcctName">
+                Isonguyo Emmanuella
+              </div>
+            </div>
+            <button class="ml-3 text-xs bg-white/10 hover:bg-white/15 rounded-lg px-3 py-2" data-copy-target="#pfAcctName">
+              Copy
+            </button>
+          </div>
+          <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 ring-1 ring-white/10">
+            <div>
+              <div class="text-white/70">
+                Bank
+              </div>
+              <div class="font-bold" id="pfBank">
+                UBA
+              </div>
+            </div>
+            <button class="ml-3 text-xs bg-white/10 hover:bg-white/15 rounded-lg px-3 py-2" data-copy-target="#pfBank">
+              Copy
+            </button>
+          </div>
+          <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 ring-1 ring-white/10">
+            <div>
+              <div class="text-white/70">
+                Amount to pay
+              </div>
+              <div class="font-extrabold" id="pfAmount">
+                ₦0
+              </div>
+            </div>
+            <button class="ml-3 text-xs bg-white/10 hover:bg-white/15 rounded-lg px-3 py-2" data-copy-target="#pfAmount">
+              Copy
+            </button>
+          </div>
+          <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 ring-1 ring-white/10">
+            <div>
+              <div class="text-white/70">
+                Payment duration
+              </div>
+              <div class="font-semibold" id="pfDuration">
+                pay before price increase to 100k. You start earning immediately.
+              </div>
+              <div class="text-xs text-[#FF8A1A] mt-1" id="countdownTimer">
+                01:00:00
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pt-3 text-center">
+          <button id="submitPaymentProof" class="orangrad text-[#111] font-extrabold rounded-2xl px-5 py-3 shadow-soft">
+            Submit Payment Proof
+          </button>
+        </div>
+      </div>
+
+      <!-- Submit Proof Options Modal (inside payment modal for layering) -->
+      <div id="submitOptionsModal" class="fixed inset-0 z-[10001] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+        <div class="w-full max-w-sm bg-[#121214] text-white rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+            <h3 class="text-lg font-extrabold">
+              Choose how to submit
+            </h3>
+            <button type="button" id="closeSubmitOptions" class="px-3 py-1 text-sm rounded-lg bg-white/10 hover:bg-white/15">
+              Close
+            </button>
+          </div>
+          <div class="px-6 py-5 space-y-4">
+            <p class="text-sm text-white/70">
+              Select Telegram, WhatsApp or Email. Your details will be filled in automatically.
+            </p>
+            <div class="space-y-3">
+              <button type="button" data-submit-channel="telegram" class="w-full flex items-center justify-between rounded-xl bg-[#229ED91a] hover:bg-[#229ED933] px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-[#229ED9] grid place-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M20.5 4.5 3.8 11.2c-.7.3-.7 1.1-.1 1.4L8 14.8l1.8 4c.3.7 1.2.7 1.5 0l1.7-3.4 4.3 2.9c.6.4 1.4.1 1.6-.6l2.1-12.1c.1-.7-.5-1.2-1.3-.9Z" stroke="#111" stroke-width="1.3" stroke-linejoin="round"></path>
+                      <path d="m9 15 7-7-8.5 5" stroke="#111" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
+                  <div class="text-left">
+                    <div class="font-semibold text-sm">
+                      Telegram
+                    </div>
+                    <div class="text-xs text-white/70">
+                      Send via Telegram chat
+                    </div>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-white/80">Use</span>
+              </button>
+
+              <button type="button" data-submit-channel="email" class="w-full flex items-center justify-between rounded-xl bg-white/5 hover:bg-white/10 px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-white/90 grid place-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="5" width="18" height="14" rx="2" stroke="#111" stroke-width="1.4"></rect>
+                      <path d="M5 7.5 12 12l7-4.5" stroke="#111" stroke-width="1.4" stroke-linecap="round"></path>
+                    </svg>
+                  </span>
+                  <div class="text-left">
+                    <div class="font-semibold text-sm">
+                      Email
+                    </div>
+                    <div class="text-xs text-white/70">
+                      Send as a detailed email
+                    </div>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-white/80">Use</span>
+              </button>
+
+              <button type="button" data-submit-channel="whatsapp" class="w-full flex items-center justify-between rounded-xl bg-[#25d3661a] hover:bg-[#25d36633] px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-[#25D366] grid place-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3a9 9 0 0 0-9 9c0 1.6.4 3.1 1.2 4.4L3 21l4.8-1.2A9 9 0 1 0 12 3Z" stroke="#111" stroke-width="1.4"></path>
+                      <path d="M9.5 9.2c-.2-.6-.5-.6-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5 0 1.5 1.1 3 1.3 3.2.2.2 2.1 3.2 5.1 4.3 2.5 1 3 1 3.5.9.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.2-.1-.5-.2s-1.7-.8-1.9-.9c-.2-.1-.4-.1-.6.1-.2.2-.7.9-.9 1-.2.1-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3Z" fill="#111"></path>
+                    </svg>
+                  </span>
+                  <div class="text-left">
+                    <div class="font-semibold text-sm">
+                      WhatsApp
+                    </div>
+                    <div class="text-xs text-white/70">
+                      Chat a Verified PayFac on WhatsApp
+                    </div>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-white/80">Use</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /mg-root -->
 
 <script>
 (function(){
@@ -1781,249 +1771,357 @@
     step();
   })();
 
-  // Payment Modal wiring: Step 1 → Step 2 → Step 3
-  (function(){
-    const MOD      = document.getElementById('mg-payModal');
-    if (!MOD) return;
-
-    const pmTitle  = document.getElementById('mg-payTitle');
-    const pmBlurb  = document.getElementById('mg-pmBlurb');
-    const pmPlan   = document.getElementById('mg-pmPlanSummary');
-    const pmAmtSum = document.getElementById('mg-pmAmountSummary');
-    const pmBank   = document.getElementById('mg-pmBank');
-    const pmName   = document.getElementById('mg-pmName');
-    const pmNo     = document.getElementById('mg-pmNumber');
-    const pmAmt    = document.getElementById('mg-pmAmount');
-    const pmRef    = document.getElementById('mg-pmRef');
-    const pmHelp   = document.getElementById('mg-pmHelp');
-    const pmProof  = document.getElementById('mg-pmProof');
-    const proofBox = document.getElementById('mg-proofOptions');
-
-    const planToggle     = document.getElementById('mg-planToggle');
-    const methodRow      = document.getElementById('mg-paymentMethods');
-
-    const PLANS = {
-      Lite:     { amount: 11000,  benefits: 'networking focus, starter tasks & training, basic support' },
-      Pro:      { amount: 17500,  benefits: 'earn without referrals, pro links & analytics, priority support' },
-      Business: { amount: 28500,  benefits: 'maximum earnings, best Product PR rate, 1:1 coaching' }
-    };
-
-    // Payment methods config (same as other Magnus code)
-    const PAYMENT_METHODS = {
-      opay: {
-        label: 'OPay',
-        acctNo: '1862610783',
-        acctName: 'Abasifreke Idorenyin Umoh',
-        bank: 'Kredi Money Mfb Ltd'
-      },
-      bank: {
-        label: 'Other Banks',
-        acctNo: '6054080105',
-        acctName: 'Spino Clinton',
-        bank: 'Moniepoint'
-      }
-    };
-
-    let currentPlan   = 'Pro';
-    let currentMethod = 'bank';
-
-    const fmt = (n)=> '₦' + n.toLocaleString('en-NG');
-    function refFor(plan){
-      const u = (localStorage.getItem('mg_username')||'yourname').toLowerCase().replace(/[^a-z0-9]+/g,'');
-      return `MAG-${u || 'yourname'}-${plan.toUpperCase()}`;
-    }
-
-    function setActiveButtons(container, selector, value, attr){
-      if (!container) return;
-      container.querySelectorAll(selector).forEach(btn=>{
-        const v = btn.getAttribute(attr);
-        if (v === value) btn.classList.add('active');
-        else btn.classList.remove('active');
-      });
-    }
-
-    function applyPlan(plan){
-      if (!PLANS[plan]) plan = 'Pro';
-      currentPlan = plan;
-      const cfg = PLANS[plan];
-      const amountText = fmt(cfg.amount);
-
-      if (pmPlan)   pmPlan.textContent   = plan + ' plan';
-      if (pmAmtSum) pmAmtSum.textContent = amountText;
-      if (pmAmt)    pmAmt.textContent    = amountText;
-      if (pmRef)    pmRef.textContent    = refFor(plan);
-
-      if (pmHelp){
-        pmHelp.innerHTML = `You selected the <b>${plan}</b> plan. After payment, tap “I’ve paid — Submit Proof” to send your proof; we’ll activate ${plan} benefits (${cfg.benefits}).`;
-      }
-
-      if (pmTitle){
-        pmTitle.textContent = 'Activate Your Magnus Plan';
-      }
-      if (pmBlurb){
-        pmBlurb.innerHTML = 'Follow the three simple steps below: <b>select a package</b>, <b>choose payment method (OPay or Bank)</b>, then <b>submit your payment proof via WhatsApp, Telegram or Email</b>.';
-      }
-
-      setActiveButtons(planToggle, '.plan-btn', plan, 'data-plan');
-    }
-
-    function applyMethod(method){
-      if (!PAYMENT_METHODS[method]) method = 'bank';
-      currentMethod = method;
-      const cfg = PAYMENT_METHODS[method];
-
-      if (pmBank) pmBank.textContent = cfg.bank;
-      if (pmName) pmName.textContent = cfg.acctName;
-      if (pmNo)   pmNo.textContent   = cfg.acctNo;
-
-      setActiveButtons(methodRow, '.pay-method-btn', method, 'data-method');
-    }
-
-    function openPay(defaultPlan){
-      applyPlan(defaultPlan || currentPlan || 'Pro');
-      applyMethod(currentMethod || 'bank');
-      if (proofBox) proofBox.classList.add('hidden'); // hide proof options until button is clicked
-      MOD.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePay(){
-      MOD.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-
-    // Buttons that open modal (from hero, pricing, floating)
-    document.querySelectorAll('[data-open="pay"]').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const plan = btn.getAttribute('data-plan') || 'Pro';
-        openPay(plan);
-      });
-    });
-
-    // Close handlers
-    MOD.querySelectorAll('[data-close-modal]').forEach(el=>{
-      el.addEventListener('click', closePay);
-    });
-    document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape' && MOD.classList.contains('show')) closePay();
-    });
-
-    // Copy buttons
-    MOD.querySelectorAll('.copy').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const id = btn.getAttribute('data-copy');
-        const node = document.getElementById(id);
-        if (!node) return;
-        const val = (node.textContent || '').trim();
-        navigator.clipboard.writeText(val).then(()=>{
-          const old = btn.textContent;
-          btn.textContent = 'Copied';
-          setTimeout(()=> btn.textContent = old, 1200);
-        }).catch(()=>{});
-      });
-    });
-
-    // Plan toggle events
-    if (planToggle){
-      planToggle.addEventListener('click', (e)=>{
-        const btn = e.target.closest('.plan-btn');
-        if (!btn) return;
-        const plan = btn.getAttribute('data-plan') || 'Pro';
-        applyPlan(plan);
-      });
-    }
-
-    // Payment method toggle events
-    if (methodRow){
-      methodRow.addEventListener('click', (e)=>{
-        const btn = e.target.closest('.pay-method-btn');
-        if (!btn) return;
-        const method = btn.getAttribute('data-method') || 'bank';
-        applyMethod(method);
-      });
-    }
-
-    // Step 3: show proof options when main button is clicked
-    if (pmProof && proofBox){
-      pmProof.addEventListener('click', ()=>{
-        proofBox.classList.remove('hidden');
-      });
-    }
-
-    // Proof channel handlers (WhatsApp / Telegram / Email)
-    if (proofBox){
-      proofBox.addEventListener('click', (e)=>{
-        const btn = e.target.closest('[data-proof-channel]');
-        if (!btn) return;
-        const channel = btn.getAttribute('data-proof-channel');
-
-        const planCfg   = PLANS[currentPlan] || PLANS['Pro'];
-        const amountTxt = fmt(planCfg.amount);
-        const bankName  = (pmBank && pmBank.textContent.trim()) || '';
-        const acctName  = (pmName && pmName.textContent.trim()) || '';
-        const acctNo    = (pmNo && pmNo.textContent.trim()) || '';
-        const ref       = (pmRef && pmRef.textContent.trim()) || '';
-
-        let username = 'there';
-        let phone    = '';
-        let email    = '';
-        try{
-          username = localStorage.getItem('magnus_apply_fullname') || localStorage.getItem('mg_username') || 'there';
-          phone    = localStorage.getItem('magnus_apply_phone') || '';
-          email    = localStorage.getItem('magnus_apply_email') || '';
-        }catch(_){}
-
-        const msg =
-`Hello Verified PayFac, please verify my Magnus payment.
-
-Name: ${username}
-Phone: ${phone}
-Email: ${email}
-
-Selected Plan: ${currentPlan}
-Amount: ${amountTxt}
-Payment Method: ${currentMethod === 'opay' ? 'OPay' : 'Bank Transfer'}
-
-Payment Details I used:
-Bank: ${bankName}
-Account Name: ${acctName}
-Account Number: ${acctNo}
-Narration/Ref: ${ref}
-
-I will now send/upload my proof of payment (screenshot or receipt).
-Thank you.`;
-
-        if (channel === 'whatsapp'){
-          const waNumber = '2347045052056';
-          const url = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
-          window.location.href = url;
-        } else if (channel === 'telegram'){
-          const tgUsername = 'magnusvemdor';
-          const appUrl = 'tg://resolve?domain=' + tgUsername + '&text=' + encodeURIComponent(msg);
-          const webUrl = 'https://t.me/' + tgUsername + '?text=' + encodeURIComponent(msg);
-
-          const start = Date.now();
-          window.location.href = appUrl;
-          setTimeout(function(){
-            if (Date.now() - start < 1200){
-              window.location.href = webUrl;
-            }
-          }, 700);
-        } else if (channel === 'email'){
-          const emailTo = '12coreclint@gmail.com';
-          const subject = 'Magnus Payment Proof Verification';
-          const url = 'mailto:' + emailTo + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
-          window.location.href = url;
-        }
-      });
-    }
-
-    // Init defaults
-    applyPlan('Pro');
-    applyMethod('bank');
-  })();
 })();
 </script>
+
+<!-- PAYMENT FLOW LOGIC PORTED IN -->
+
+<script>
+(function(){
+  const plansModal = document.getElementById('magnusPlansModal');
+  const closePlansModal = document.getElementById('closePlansModal');
+  const plansContent = document.getElementById('plansContent');
+
+  function openPlansModal(){
+    if (!plansModal) return;
+    if (!plansModal.classList.contains('hidden')) return;
+    plansModal.classList.remove('hidden');
+    plansModal.classList.add('flex');
+  }
+  function closePlans(){
+    if (!plansModal) return;
+    plansModal.classList.add('hidden');
+    plansModal.classList.remove('flex');
+  }
+
+  // Any .mg-pay-open triggers the plans modal
+  document.querySelectorAll('.mg-pay-open').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openPlansModal();
+    });
+  });
+
+  closePlansModal && closePlansModal.addEventListener('click', closePlans);
+  plansModal && plansModal.addEventListener('click', (e)=>{
+    if (e.target === plansModal) closePlans();
+  });
+
+  // Handle plan select -> show PayFac notice + button
+  plansContent && plansContent.addEventListener('click', function(e){
+    const toggle = e.target.closest('.see-benefits');
+    if (toggle) return; // handled below
+
+    const card = e.target.closest('button[data-plan]');
+    if (!card) return;
+    const plan = card.getAttribute('data-plan') || '';
+
+    plansContent.innerHTML = `
+      <div class="space-y-4">
+        <div class="text-center">
+          <h3 class="text-2xl font-extrabold">Selected: Magnus ${plan}</h3>
+          <p class="mt-2 text-[#C8C8CC]">
+            Magnus Verified PayFac Authenticator wants to verify your entry plan deposit so you can start earning immediately. Click the button below to get verified.
+          </p>
+        </div>
+        <div class="flex items-center justify-center">
+          <a id="buyPayfacBtn"
+             class="orangrad text-[#111] font-extrabold rounded-2xl px-6 py-3 shadow-soft cursor-pointer">
+             Get Verified Now
+          </a>
+        </div>
+      </div>
+    `;
+    try {
+      const ev = new CustomEvent('magnus:plan:selected', { detail: { plan } });
+      window.dispatchEvent(ev);
+    } catch(_) {}
+  });
+
+  // Toggle "See benefits" dropdowns on initial grid
+  plansContent && plansContent.addEventListener('click', function(e){
+    const toggle = e.target.closest('.see-benefits');
+    if (!toggle) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const card = toggle.closest('button[data-plan]');
+    if (!card) return;
+    const plan = card.getAttribute('data-plan');
+    const panel = card.querySelector(`[data-benefit-panel="${plan}"]`);
+    if (!panel) return;
+    const isHidden = panel.classList.contains('hidden');
+    plansContent.querySelectorAll('[data-benefit-panel]').forEach(p => {
+      if (p !== panel) p.classList.add('hidden');
+    });
+    if (isHidden) panel.classList.remove('hidden'); else panel.classList.add('hidden');
+  });
+
+  // Ensure .select-plan behaves same as card click
+  plansContent && plansContent.addEventListener('click', function(e){
+    const sel = e.target.closest('.select-plan');
+    if (!sel) return;
+    e.preventDefault();
+    const card = sel.closest('button[data-plan]');
+    if (card) card.click();
+  });
+
+})();
+</script>
+
+<script>
+(function(){
+  const payModal = document.getElementById('payfacPaymentModal');
+  const closePay = document.getElementById('closePaymentModal');
+  const nameEl = document.getElementById('pfUserName');
+  const amtEl = document.getElementById('pfAmount');
+  const submitBtn = document.getElementById('submitPaymentProof');
+
+  const planAmountMap = {
+    'Lite': '₦11,000',
+    'Pro': '₦17,500',
+    'Business': '₦28,500'
+  };
+  let selectedPlan = null;
+  let selectedAmount = null;
+
+  window.addEventListener('magnus:plan:selected', function(e){
+    selectedPlan = (e.detail && e.detail.plan) || null;
+    selectedAmount = planAmountMap[selectedPlan] || null;
+  });
+
+  function openPaymentCard(){
+    let name = 'there';
+    try {
+      name = localStorage.getItem('magnus_apply_fullname') || 'there';
+    } catch(_) {}
+
+    if (nameEl) nameEl.textContent = name;
+    if (amtEl) amtEl.textContent = selectedAmount || '₦0';
+
+    const methodModal = document.getElementById('paymentMethodModal');
+    if (methodModal){
+      methodModal.classList.remove('hidden');
+      methodModal.classList.add('flex');
+    } else if (payModal){
+      payModal.classList.remove('hidden');
+      payModal.classList.add('flex');
+    }
+  }
+
+  function closePaymentCard(){
+    payModal.classList.add('hidden');
+    payModal.classList.remove('flex');
+  }
+
+  window.openPaymentCard = openPaymentCard;
+  closePay && closePay.addEventListener('click', closePaymentCard);
+
+  // Intercept Buy PayFac button to open this flow
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('#buyPayfacBtn');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    openPaymentCard();
+  }, true);
+
+  // Copy buttons inside payment card
+  document.addEventListener('click', async function(e){
+    const copyBtn = e.target.closest('button[data-copy-target]');
+    if (!copyBtn) return;
+    const sel = copyBtn.getAttribute('data-copy-target');
+    const target = document.querySelector(sel);
+    if (!target) return;
+    const text = (target.textContent || '').trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(()=> copyBtn.textContent = original, 1200);
+    } catch(_) {
+      alert('Copy failed. Long-press to copy.');
+    }
+  });
+
+  // Submit Payment Proof -> show options modal
+  submitBtn && submitBtn.addEventListener('click', function(){
+    let name = 'there', phone = '', email = '';
+    try {
+      name = localStorage.getItem('magnus_apply_fullname') || 'there';
+      phone = localStorage.getItem('magnus_apply_phone') || '';
+      email = localStorage.getItem('magnus_apply_email') || '';
+    } catch(_) {}
+
+    const plan = selectedPlan || 'Not selected';
+    const amount = selectedAmount || '₦0';
+
+    const acctNo = (document.getElementById('pfAcctNo')?.textContent || '').trim();
+    const acctName = (document.getElementById('pfAcctName')?.textContent || '').trim();
+    const bank = (document.getElementById('pfBank')?.textContent || '').trim();
+
+    const msg = `Hello Verified PayFac, please verify my Magnus payment.
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Selected Plan: ${plan}
+Amount: ${amount}
+
+Payment details I used:
+Account number: ${acctNo}
+Account Name: ${acctName}
+Bank: ${bank}
+
+Please confirm my payment. I will upload my proof of payment now (picture/screenshot/file/pdf).`;
+
+    window.__magnusProofMsg = msg || '';
+
+    const optModal = document.getElementById('submitOptionsModal');
+    if (optModal){
+      optModal.classList.remove('hidden');
+      optModal.classList.add('flex');
+    }
+  });
+
+  // Handle submit proof channel selection
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-submit-channel]');
+    if (!btn) return;
+    const channel = btn.getAttribute('data-submit-channel');
+    const msg = window.__magnusProofMsg || '';
+    if (!msg) return;
+
+    const optModal = document.getElementById('submitOptionsModal');
+    if (optModal){
+      optModal.classList.add('hidden');
+      optModal.classList.remove('flex');
+    }
+
+    if (channel === 'whatsapp'){
+      const waNumber = "2347045052056";
+      const url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(msg);
+      window.location.href = url;
+    } else if (channel === 'email'){
+      const emailTo = "magusskillsite@gmail.com";
+      const subject = "Magnus Payment Proof Verification";
+      const url = "mailto:" + emailTo + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(msg);
+      window.location.href = url;
+    } else if (channel === 'telegram'){
+      const tgLink = "https://t.me/paramount_payfac";
+      const url = tgLink + "?text=" + encodeURIComponent(msg);
+      window.location.href = url;
+    }
+  });
+
+  // Close options modal on close button / backdrop
+  (function(){
+    const optModal = document.getElementById('submitOptionsModal');
+    const closeBtn = document.getElementById('closeSubmitOptions');
+    if (!optModal) return;
+    if (closeBtn){
+      closeBtn.addEventListener('click', function(){
+        optModal.classList.add('hidden');
+        optModal.classList.remove('flex');
+      });
+    }
+    optModal.addEventListener('click', function(e){
+      if (e.target === optModal){
+        optModal.classList.add('hidden');
+        optModal.classList.remove('flex');
+      }
+    });
+  })();
+
+})();
+</script>
+
+<script>
+(function(){
+  const methodModal = document.getElementById('paymentMethodModal');
+  const payModal   = document.getElementById('payfacPaymentModal');
+  const acctNoEl   = document.getElementById('pfAcctNo');
+  const acctNameEl = document.getElementById('pfAcctName');
+  const bankEl     = document.getElementById('pfBank');
+
+  const paymentMethods = {
+    opay: {
+      acctNo: '1862610783',
+      acctName: 'Abasifreke Idorenyin Umoh',
+      bank: 'Kredi Money Mfb Ltd'
+    },
+    bank: {
+      acctNo: acctNoEl ? acctNoEl.textContent.trim() : '2283315431',
+      acctName: acctNameEl ? acctNameEl.textContent.trim() : 'Isonguyo Emmanuella',
+      bank: bankEl ? bankEl.textContent.trim() : 'UBA'
+    }
+  };
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-pay-method]');
+    if (!btn) return;
+    const methodKey = btn.getAttribute('data-pay-method');
+    const cfg = paymentMethods[methodKey];
+    if (!cfg) return;
+
+    if (acctNoEl)   acctNoEl.textContent   = cfg.acctNo;
+    if (acctNameEl) acctNameEl.textContent = cfg.acctName;
+    if (bankEl)     bankEl.textContent     = cfg.bank;
+
+    if (methodModal){
+      methodModal.classList.add('hidden');
+      methodModal.classList.remove('flex');
+    }
+    if (payModal){
+      payModal.classList.remove('hidden');
+      payModal.classList.add('flex');
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function startCountdown(){
+    var timer = document.getElementById('countdownTimer');
+    if (!timer) return;
+    var remaining = 3600;
+    if (window._pfCountdown) clearInterval(window._pfCountdown);
+    function update(){
+      var h = String(Math.floor(remaining / 3600)).padStart(2,'0');
+      var m = String(Math.floor((remaining % 3600) / 60)).padStart(2,'0');
+      var s = String(remaining % 60).padStart(2,'0');
+      timer.textContent = h + ":" + m + ":" + s;
+      if (remaining <= 0){
+        clearInterval(window._pfCountdown);
+        timer.textContent = "Expired";
+        timer.classList.add("text-red-400");
+        return;
+      }
+      remaining--;
+    }
+    update();
+    window._pfCountdown = setInterval(update, 1000);
+  }
+
+  var payModal = document.getElementById('payfacPaymentModal');
+  if (payModal){
+    var obs = new MutationObserver(function(){
+      if (!payModal.classList.contains('hidden')){
+        startCountdown();
+      }
+    });
+    obs.observe(payModal, { attributes: true, attributeFilter: ['class'] });
+  }
+})();
+</script>
+
+<style>
+  /* Reduce Entry Plan popup card size by 30% and keep it centered */
+  #magnusPlansModal > div {
+    transform: scale(0.7);
+    transform-origin: center center;
+  }
+</style>
+
 </body>
 </html>
